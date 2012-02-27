@@ -36,5 +36,6 @@ It's a work in progress. I might put it up on the android store some day, but th
 
 # Out of Scope #
 There are a few things that are out of the scope of this project, either for time or complexity reasons
+
  * Graphing: the UI and the engine are different enough that this should be a separate app.
  * Symbolic solving: I don't have the time or the know-how to reinvent Mathmatica
