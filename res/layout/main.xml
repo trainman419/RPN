@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="bottom|clip_vertical"
+    >
+    <ListView
+	    		android:id="@+id/stack"
+	    		android:layout_width="fill_parent"
+	    		android:layout_height="wrap_content"
+	    		android:layout_gravity="bottom|clip_vertical"
+	    		/>
+	<TableLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="bottom"
+	    android:stretchColumns="*"
+	    >
+	    <TableRow
+	    	android:layout_height="fill_parent" > <!-- Stack -->
+	    	<!-- <ListView
+	    		android:id="@+id/stack"
+	    		android:layout_span="5"
+	    	/> -->
+	    </TableRow>
+	    <TableRow> <!--  First row of buttons -->
+	    	<Button
+	     		android:text="1"
+	     		android:onClick="number" />
+	    	<Button
+	     		android:text="2"
+	     		android:onClick="number" />
+	    	<Button
+	     		android:text="3"
+	     		android:onClick="number" />
+	     	<Button 
+	     		android:text="+"
+	     		android:onClick="add" />
+	    </TableRow>
+	    <TableRow> <!-- Second row of buttons -->
+	    	<Button
+	     		android:text="4"
+	     		android:onClick="number" />
+	    	<Button
+	     		android:text="5"
+	     		android:onClick="number" />
+	    	<Button
+	     		android:text="6"
+	     		android:onClick="number" />
+	     	<Button 
+	     		android:text="-"
+	     		android:onClick="subtract" />
+	    </TableRow>
+	    <TableRow> <!-- Third row of buttons -->
+	    	<Button
+	     		android:text="7"
+	     		android:onClick="number" />
+	    	<Button
+	     		android:text="8"
+	     		android:onClick="number" />
+	    	<Button
+	     		android:text="9"
+	     		android:onClick="number" />
+	     	<Button 
+	     		android:text="/"
+	     		android:onClick="div" />
+	     	<Button
+	     		android:text="Clear"
+	     		android:onClick="clear" />
+	    </TableRow>
+	    <TableRow>
+	    	<Button
+	     		android:text="0"
+	     		android:onClick="number" />
+	    	<Button
+	     		android:text="."
+	     		android:onClick="dot" />
+	    	<Button
+	     		android:text="+/-"
+	     		android:onClick="sign" />
+	     	<Button 
+	     		android:text="*"
+	     		android:onClick="multiply" />
+	     	<Button
+	     		android:text="Enter"
+	     		android:onClick="enter" />
+	    </TableRow>
+	</TableLayout>
+</LinearLayout>
