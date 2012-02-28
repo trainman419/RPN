@@ -138,6 +138,7 @@ public class RPNCalculatorActivity extends Activity {
     
     public void enter(View v) {
     	mMode = Mode.OP;
+    	mInput = new StringBuilder();
     }
     
     public void clear(View v) {
