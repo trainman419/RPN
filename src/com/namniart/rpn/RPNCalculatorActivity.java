@@ -58,6 +58,7 @@ public class RPNCalculatorActivity extends Activity {
     		}
     		d("mInput: " + mInput);
     		mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
     	}
     }
     
@@ -69,6 +70,7 @@ public class RPNCalculatorActivity extends Activity {
 	    	Double b = mStack.remove(i-1);
 	    	mStack.add(a + b);
 			mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
     }
     
@@ -80,6 +82,7 @@ public class RPNCalculatorActivity extends Activity {
 	    	Double b = mStack.remove(i-1);
 	    	mStack.add(b - a);
 	    	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
     }
     
@@ -91,6 +94,7 @@ public class RPNCalculatorActivity extends Activity {
 	    	Double b = mStack.remove(i-1);
 	    	mStack.add(b / a);
 	    	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
     }
     
@@ -102,6 +106,7 @@ public class RPNCalculatorActivity extends Activity {
 	    	Double b = mStack.remove(i-1);
 	    	mStack.add(a * b);
 	    	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
     }
     
@@ -114,6 +119,7 @@ public class RPNCalculatorActivity extends Activity {
     	int i = mStack.size() - 1;
     	mStack.set(i, - mStack.get(i));
     	mAdapter.notifyDataSetChanged();
+    	mStackView.smoothScrollToPosition(mStack.size() -1);
     }
     
     public void dot(View v) {
@@ -133,6 +139,7 @@ public class RPNCalculatorActivity extends Activity {
     			mMode = Mode.INPUT;
     		}
     		mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
     	}
     }
     
@@ -147,6 +154,7 @@ public class RPNCalculatorActivity extends Activity {
     	mStack.add(0.0);
     	mInput = new StringBuilder();
     	mAdapter.notifyDataSetChanged();
+    	mStackView.smoothScrollToPosition(0);
     }
     
     private void d(String s) {
