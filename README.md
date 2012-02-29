@@ -32,6 +32,7 @@ It's a work in progress. I might put it up on the android store some day, but th
   * Possible alternate layouts for landscape and portrait
  * Drag to re-arrange the stack?
   * This would be a fun new twist on the old RPN calculator style
+ * Move the backend from Double to BigDecimal
 
 # Out of Scope #
 There are a few things that are out of the scope of this project, either for time or complexity reasons
