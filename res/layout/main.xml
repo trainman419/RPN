@@ -82,6 +82,7 @@
 				android:layout_alignParentTop="true"
 				android:layout_above="@id/buttontable"
 				android:stackFromBottom="true"
+				android:transcriptMode="normal"
 	    	/>
 	
 </RelativeLayout>
