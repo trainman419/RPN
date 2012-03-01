@@ -1,5 +1,7 @@
 package com.namniart.rpn;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,12 +20,13 @@ public class RPNCalculatorActivity extends Activity {
 		INPUT, OP
 	}
 
-	private List<Double> mStack; // the stack
+	private List<BigDecimal> mStack; // the stack
 	private Mode mMode;    // input mode; are we in input mode?
 	private StringBuilder mInput; // string version of current input
 	
-	private ArrayAdapter<Double> mAdapter;
+	private ArrayAdapter<BigDecimal> mAdapter;
 	private ListView mStackView;
+	private MathContext mMathContext;
 	
     /** Called when the activity is first created. */
     @Override
@@ -31,14 +34,15 @@ public class RPNCalculatorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        mStack = new LinkedList<Double>();
+        mStack = new LinkedList<BigDecimal>();
         mMode = Mode.INPUT;
         mInput = new StringBuilder();
+        mMathContext = MathContext.DECIMAL128;
         
-        mStack.add(0.0);
+        mStack.add(BigDecimal.ZERO);
         
         mStackView = (ListView) findViewById(R.id.stack);
-        mAdapter = new ArrayAdapter<Double>(this,
+        mAdapter = new ArrayAdapter<BigDecimal>(this,
         		R.layout.stack_item, mStack);
         mStackView.setAdapter(mAdapter);
     }
@@ -49,11 +53,11 @@ public class RPNCalculatorActivity extends Activity {
     		d("Got number " + b.getText());
     		if( mMode == Mode.INPUT ) {
         		mInput.append(b.getText());
-    			mStack.set(mStack.size()-1, Double.parseDouble(new String(mInput)));
+    			mStack.set(mStack.size()-1, bd(mInput));
     		} else {
     			mInput = new StringBuilder();
         		mInput.append(b.getText());
-    			mStack.add(Double.parseDouble(new String(mInput)));
+    			mStack.add(bd(mInput));
     			mMode = Mode.INPUT;
     		}
     		d("mInput: " + mInput);
@@ -66,9 +70,9 @@ public class RPNCalculatorActivity extends Activity {
     	int i = mStack.size() - 1;
 		mMode = Mode.OP;
 		if( i > 0 ) {
-	    	Double a = mStack.remove(i);
-	    	Double b = mStack.remove(i-1);
-	    	mStack.add(a + b);
+	    	BigDecimal a = mStack.remove(i);
+	    	BigDecimal b = mStack.remove(i-1);
+	    	mStack.add(a.add(b));
 			mAdapter.notifyDataSetChanged();
         	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
@@ -78,9 +82,9 @@ public class RPNCalculatorActivity extends Activity {
     	int i = mStack.size() - 1;
 		mMode = Mode.OP;
 		if( i > 0 ) {
-	    	Double a = mStack.remove(i);
-	    	Double b = mStack.remove(i-1);
-	    	mStack.add(b - a);
+	    	BigDecimal a = mStack.remove(i);
+	    	BigDecimal b = mStack.remove(i-1);
+	    	mStack.add(b.subtract(a));
 	    	mAdapter.notifyDataSetChanged();
         	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
@@ -90,9 +94,9 @@ public class RPNCalculatorActivity extends Activity {
     	int i = mStack.size() - 1;
 		mMode = Mode.OP;
 		if( i > 0 ) {
-	    	Double a = mStack.remove(i);
-	    	Double b = mStack.remove(i-1);
-	    	mStack.add(b / a);
+	    	BigDecimal a = mStack.remove(i);
+	    	BigDecimal b = mStack.remove(i-1);
+	    	mStack.add(b.divide(a, mMathContext));
 	    	mAdapter.notifyDataSetChanged();
         	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
@@ -102,9 +106,9 @@ public class RPNCalculatorActivity extends Activity {
     	int i = mStack.size() - 1;
 		mMode = Mode.OP;
 		if( i > 0 ) {
-	    	Double a = mStack.remove(i);
-	    	Double b = mStack.remove(i-1);
-	    	mStack.add(a * b);
+	    	BigDecimal a = mStack.remove(i);
+	    	BigDecimal b = mStack.remove(i-1);
+	    	mStack.add(a.multiply(b));
 	    	mAdapter.notifyDataSetChanged();
         	mStackView.smoothScrollToPosition(mStack.size() -1);
 		}
@@ -113,11 +117,18 @@ public class RPNCalculatorActivity extends Activity {
     public void sign(View v) {
     	// always change the sign of the bottom item on the stack
     	if( mMode == Mode.INPUT ) {
-    		// prepend a negative sign
-    		mInput.insert(0, '-');
+    		int i = mInput.indexOf("-");
+    		// if there isn't a negative sign, add one. else, remove it
+    		if(-1 == i) {
+        		// prepend a negative sign
+    			mInput.insert(0, '-');
+    		} else {
+    			// delete the negative sign
+    			mInput.deleteCharAt(i);
+    		}
     	}
     	int i = mStack.size() - 1;
-    	mStack.set(i, - mStack.get(i));
+    	mStack.set(i, mStack.get(i).negate());
     	mAdapter.notifyDataSetChanged();
     	mStackView.smoothScrollToPosition(mStack.size() -1);
     }
@@ -130,12 +141,12 @@ public class RPNCalculatorActivity extends Activity {
     				mInput.append('0');
     			}
     			mInput.append('.');
-    			mStack.set(mStack.size()-1, Double.parseDouble(new String(mInput)));
+    			mStack.set(mStack.size()-1, bd(mInput));
     		} else {
     			mInput = new StringBuilder();
     			mInput.append('0');
     			mInput.append('.');
-    			mStack.add(Double.parseDouble(new String(mInput)));
+    			mStack.add(bd(mInput));
     			mMode = Mode.INPUT;
     		}
     		mAdapter.notifyDataSetChanged();
@@ -151,7 +162,7 @@ public class RPNCalculatorActivity extends Activity {
     public void clear(View v) {
     	mMode = Mode.INPUT;
     	mStack.clear();
-    	mStack.add(0.0);
+    	mStack.add(BigDecimal.ZERO);
     	mInput = new StringBuilder();
     	mAdapter.notifyDataSetChanged();
     	mStackView.smoothScrollToPosition(0);
@@ -159,5 +170,9 @@ public class RPNCalculatorActivity extends Activity {
     
     private void d(String s) {
     	Log.d("RPN", s);
+    }
+    
+    private BigDecimal bd(StringBuilder b) {
+    	return new BigDecimal(b.toString(), mMathContext);
     }
 }
