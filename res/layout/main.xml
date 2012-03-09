@@ -14,63 +14,81 @@
 	    <TableRow> <!--  First row of buttons -->
 	    	<Button
 	     		android:text="1"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	    	<Button
 	     		android:text="2"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	    	<Button
 	     		android:text="3"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	     	<Button 
 	     		android:text="+"
+	     		android:textSize="20.0sp"
 	     		android:onClick="add" />
 	    </TableRow>
 	    <TableRow> <!-- Second row of buttons -->
 	    	<Button
 	     		android:text="4"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	    	<Button
 	     		android:text="5"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	    	<Button
 	     		android:text="6"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	     	<Button 
 	     		android:text="-"
+	     		android:textSize="20.0sp"
 	     		android:onClick="subtract" />
 	    </TableRow>
 	    <TableRow> <!-- Third row of buttons -->
 	    	<Button
 	     		android:text="7"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	    	<Button
 	     		android:text="8"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	    	<Button
 	     		android:text="9"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	     	<Button 
 	     		android:text="/"
+	     		android:textSize="20.0sp"
 	     		android:onClick="div" />
 	     	<Button
 	     		android:text="Clear"
+	     		android:textSize="20.0sp"
 	     		android:onClick="clear" />
 	    </TableRow>
 	    <TableRow>
 	    	<Button
 	     		android:text="0"
+	     		android:textSize="20.0sp"
 	     		android:onClick="number" />
 	    	<Button
 	     		android:text="."
+	     		android:textSize="20.0sp"
 	     		android:onClick="dot" />
 	    	<Button
 	     		android:text="+/-"
+	     		android:textSize="20.0sp"
 	     		android:onClick="sign" />
 	     	<Button 
 	     		android:text="*"
+	     		android:textSize="20.0sp"
 	     		android:onClick="multiply" />
 	     	<Button
 	     		android:text="Enter"
+	     		android:textSize="20.0sp"
 	     		android:onClick="enter" />
 	    </TableRow>
 	</TableLayout>
