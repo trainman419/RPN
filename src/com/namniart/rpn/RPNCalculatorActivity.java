@@ -139,6 +139,9 @@ public class RPNCalculatorActivity extends Activity {
     		BigDecimal two = new BigDecimal(2);
     		BigDecimal result = d;
     		BigDecimal x = result;
+    		// compute square root to the limit of our precision model
+    		// this is "good enough" on my Galaxy Nexus; performance improvements will be made on an as-necessary basis
+    		// better methods exist; see: http://en.wikipedia.org/wiki/Methods_of_computing_square_roots
     		do {
     			result = x;
     			x = x.add(d.divide(x, mMathContext));
