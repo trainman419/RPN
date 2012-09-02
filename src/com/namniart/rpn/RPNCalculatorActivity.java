@@ -133,6 +133,64 @@ public class RPNCalculatorActivity extends Activity {
     	mStackView.smoothScrollToPosition(mStack.size() -1);
     }
     
+    private BigDecimal root(BigDecimal d) {
+    	int cmp = d.compareTo(BigDecimal.ZERO);
+    	if( cmp > 0 ) {
+    		BigDecimal two = new BigDecimal(2);
+    		BigDecimal result = d;
+    		BigDecimal x = result;
+    		do {
+    			result = x;
+    			x = x.add(d.divide(x, mMathContext));
+    			x = x.divide(two, mMathContext);
+    		} while( ! x.equals(result) );
+    		return result;
+    	} else if( cmp == 0 ) {
+    		return d;
+    	} else {
+    		// return null for negative numbers; we don't support complex math yet
+    		return null;
+    	}
+    }
+    
+    public void sqrt(View v) {
+    	int i = mStack.size() - 1;
+    	mMode = Mode.OP;
+    	if( i >= 0 ) {
+    		BigDecimal a = mStack.remove(i);
+    		BigDecimal result = root(a);
+    		if( result == null ) {
+    			result = a;
+    		}
+    		mStack.add(result);
+	    	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
+    	}
+    }
+    
+    public void stats(View v) {
+    	mMode = Mode.OP;
+    	BigDecimal sum = BigDecimal.ZERO;
+    	BigDecimal count = new BigDecimal(mStack.size());
+    	for( BigDecimal d : mStack ) {
+    		sum = sum.add(d);
+    	}
+    	BigDecimal average = sum.divide(count, mMathContext);
+    	BigDecimal variance = BigDecimal.ZERO;
+    	for( BigDecimal d : mStack ) {
+    		BigDecimal t = average.subtract(d);
+    		t = t.multiply(t);
+    		variance = variance.add(t);
+    	}
+    	variance = variance.divide(count, mMathContext);
+    	BigDecimal std_dev = root(variance);
+    	mStack.add(average);
+    	mStack.add(std_dev);
+    	
+    	mAdapter.notifyDataSetChanged();
+    	mStackView.smoothScrollToPosition(mStack.size() -1);
+    }
+    
     public void dot(View v) {
     	// only append a dot if our string doesn't contain one
     	if( mInput.indexOf(".") == -1 ) {

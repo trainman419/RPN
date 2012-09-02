@@ -28,6 +28,10 @@
 	     		android:text="+"
 	     		android:textSize="20.0sp"
 	     		android:onClick="add" />
+	     	<Button
+	     		android:text="Avg/Std"
+	     		android:textSize="20.0sp"
+	     		android:onClick="stats" />
 	    </TableRow>
 	    <TableRow> <!-- Second row of buttons -->
 	    	<Button
@@ -46,6 +50,10 @@
 	     		android:text="-"
 	     		android:textSize="20.0sp"
 	     		android:onClick="subtract" />
+	     	<Button
+	     		android:text="sqrt"
+	     		android:textSize="20.0sp"
+	     		android:onClick="sqrt" />
 	    </TableRow>
 	    <TableRow> <!-- Third row of buttons -->
 	    	<Button
