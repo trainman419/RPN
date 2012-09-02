@@ -99,6 +99,28 @@
 	     		android:textSize="20.0sp"
 	     		android:onClick="enter" />
 	    </TableRow>
+	    <TableRow>
+	     	<Button
+	     		android:text="1/x"
+	     		android:textSize="20.0sp"
+	     		android:onClick="inverse" />
+	     	<Button
+	     		android:text="Drop"
+	     		android:textSize="20.0sp"
+	     		android:onClick="drop" />
+	     	<Button
+	     		android:text="Swap"
+	     		android:textSize="20.0sp"
+	     		android:onClick="swap" />
+	     	<Button
+	     		android:text="Pi"
+	     		android:textSize="20.0sp"
+	     		android:onClick="pi" />
+	     	<Button
+	     		android:text="Dup"
+	     		android:textSize="20.0sp"
+	     		android:onClick="dup" />
+	    </TableRow>
 	</TableLayout>
 	
     <ListView

@@ -168,6 +168,20 @@ public class RPNCalculatorActivity extends Activity {
     	}
     }
     
+    public void inverse(View v) {
+    	int i = mStack.size() - 1;
+    	mMode = Mode.OP;
+    	if( i >= 0 ) {
+    		BigDecimal a = mStack.remove(i);
+    		if( !a.equals(BigDecimal.ZERO) ) {
+    			a = BigDecimal.ONE.divide(a, mMathContext);
+    		}
+    		mStack.add(a);
+        	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
+    	}
+    }
+    
     public void stats(View v) {
     	mMode = Mode.OP;
     	BigDecimal sum = BigDecimal.ZERO;
@@ -225,6 +239,49 @@ public class RPNCalculatorActivity extends Activity {
     	mAdapter.notifyDataSetChanged();
     	mStackView.smoothScrollToPosition(0);
     }
+    
+    public void drop(View v) {
+    	int i = mStack.size() - 1;
+    	mMode = Mode.OP;
+    	if( i >= 0 ) {
+    		mStack.remove(i);
+        	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
+    	}
+    }
+    
+    public void swap(View v) {
+    	int i = mStack.size() - 1;
+    	mMode = Mode.OP;
+    	if( i > 0 ) {
+    		BigDecimal a = mStack.remove(i);
+    		BigDecimal b = mStack.remove(i-1);
+    		mStack.add(a);
+    		mStack.add(b);
+        	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
+    	}
+    }
+    
+    public void dup(View v) {
+    	int i = mStack.size() - 1;
+    	mMode = Mode.OP;
+    	if( i >= 0 ) {
+    		BigDecimal a = mStack.get(i);
+    		mStack.add(a);
+        	mAdapter.notifyDataSetChanged();
+        	mStackView.smoothScrollToPosition(mStack.size() -1);
+    	}
+    }
+    
+    public void pi(View v) {
+    	mMode = Mode.OP;
+    	BigDecimal pi = new BigDecimal(Math.PI);
+    	mStack.add(pi);
+    	mAdapter.notifyDataSetChanged();
+    	mStackView.smoothScrollToPosition(mStack.size() -1);
+    }
+    
     
     private void d(String s) {
     	Log.d("RPN", s);

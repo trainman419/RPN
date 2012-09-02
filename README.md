@@ -14,13 +14,9 @@ It's a work in progress. I might put it up on the android store some day, but th
  * Save and restore state properly
  * Update the buttons so that they don't look horrible
  * Add more functions!
-  * Swap
-  * Drop item
   * Math functions:
    * sin, cos, tan, etc
-   * inverse
    * Arbitrary powers
- * PI
  * Right-align or decimal-align the stack
   * Decimal-align will look better, but be harder
  * Test on various screen sizes and devices
