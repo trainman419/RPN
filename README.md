@@ -11,7 +11,6 @@ The current Android API is set to 2.3.3; it may compile and work on older device
 It's a work in progress. I might put it up on the android store some day, but there are a lot of things to do first.
 
 # TODO #
- * Save and restore state properly
  * Update the buttons so that they don't look horrible
  * Add more functions!
   * Math functions:
@@ -20,10 +19,7 @@ It's a work in progress. I might put it up on the android store some day, but th
  * Right-align or decimal-align the stack
   * Decimal-align will look better, but be harder
  * Test on various screen sizes and devices
- * Deal with screen rotation properly
-  * preserve the stack, input mode and input temporary
-  * probably override onSaveInstanceState or some such
-  * Possible alternate layouts for landscape and portrait
+ * Alternate layouts for landscape and portrait
  * Drag to re-arrange the stack?
   * This would be a fun new twist on the old RPN calculator style
  * Specify precision

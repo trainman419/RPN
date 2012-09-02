@@ -34,19 +34,45 @@ public class RPNCalculatorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        mStack = new LinkedList<BigDecimal>();
-        mMode = Mode.INPUT;
-        mInput = new StringBuilder();
         mMathContext = MathContext.DECIMAL128;
-        
-        mStack.add(BigDecimal.ZERO);
+        mStack = new LinkedList<BigDecimal>();
+        if( savedInstanceState != null &&
+        	savedInstanceState.containsKey("stack") &&
+        	savedInstanceState.containsKey("mode")  &&
+        	savedInstanceState.containsKey("input")) {
+        	mMode = Mode.values()[savedInstanceState.getInt("mode")];
+        	mInput = new StringBuilder(savedInstanceState.getString("input"));
+        	
+        	for( String s : savedInstanceState.getStringArray("stack") ) {
+        		mStack.add(new BigDecimal(s));
+        	}
+        	
+        } else {
+	        mMode = Mode.INPUT;
+	        mInput = new StringBuilder();
+	        
+	        mStack.add(BigDecimal.ZERO);
+        }
         
         mStackView = (ListView) findViewById(R.id.stack);
         mAdapter = new ArrayAdapter<BigDecimal>(this,
         		R.layout.stack_item, mStack);
         mStackView.setAdapter(mAdapter);
     }
-        
+       
+    @Override
+    public void onSaveInstanceState(Bundle outBundle) {
+    	String [] output = new String[mStack.size()];
+    	int i = 0;
+    	for( BigDecimal d : mStack ) {
+    		output[i++] = d.toString();
+    	}
+    	outBundle.putStringArray("stack", output);
+    	outBundle.putInt("mode", mMode.ordinal());
+    	outBundle.putString("input", mInput.toString());
+    }
+    
+    // buttons and functions
     public void number(View v) {
     	if( v instanceof Button ) {
     		Button b = (Button)v;
@@ -248,6 +274,11 @@ public class RPNCalculatorActivity extends Activity {
     	mMode = Mode.OP;
     	if( i >= 0 ) {
     		mStack.remove(i);
+    		if( mStack.size() == 0 ) {
+    			mStack.add(BigDecimal.ZERO);
+    			mInput = new StringBuilder();
+    			mMode = Mode.INPUT;
+    		}
         	mAdapter.notifyDataSetChanged();
         	mStackView.smoothScrollToPosition(mStack.size() -1);
     	}
@@ -285,7 +316,7 @@ public class RPNCalculatorActivity extends Activity {
     	mStackView.smoothScrollToPosition(mStack.size() -1);
     }
     
-    
+    // helper functions
     private void d(String s) {
     	Log.d("RPN", s);
     }
